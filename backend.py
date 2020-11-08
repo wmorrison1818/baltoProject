@@ -14,23 +14,11 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def api_all():
     con = sqlite3.connect("movieData.sqlite")
     cur = con.cursor()
-    movieData = pd.read_sql_query("SELECT * from movie", con)
+    movieData = pd.read_sql_query("SELECT * from movie limit 10", con)
 
-    # close dbs
+    con.close()
 
-    return movieData.head(10).to_json(orient='records')
-
-# @app.route('/movie/', methods=['POST'])
-# @cross_origin(origin='localhost',headers=['Content- Type','Authorization','Access-Control-Allow-Origin'])
-# def post_movie():
-#     con = sqlite3.connect("movieData.sqlite")
-#     cur = con.cursor()
-#     response.headers.add('Access-Control-Allow-Origin', '*')
-#     req_data = request.get_json()
-#     print("AA")
-#     movieData = pd.read_sql_query("SELECT * from movie", con)
-
-#     return movieData.head(10).to_json(orient='records')
+    return movieData.to_json(orient='records')
 
 @app.route("/movies/<id>", methods=["DELETE"])
 def guide_delete(id):
@@ -40,8 +28,10 @@ def guide_delete(id):
     cur.execute(f"DELETE FROM movie WHERE id='{id}'")
     con.commit()
 
-    movieData = pd.read_sql_query("SELECT * from movie", con)
+    movieData = pd.read_sql_query("SELECT * from movie limit 10", con)
 
-    return movieData.head(10).to_json(orient='records')
+    con.close()
+
+    return movieData.to_json(orient='records')
 
 app.run()

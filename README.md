@@ -1,3 +1,15 @@
+# Will Morrison
+For my project I used a React frontend with a Flask backend and a sqlite database. I used React as you requested. I used Flask and sqlite because I was a bit familiar with them already, and they are very easy to use given the time constraint. I used a template to start with for my React frontend which is located in the “WebFrontEnd” folder which contains a readme about where it came from. Other than that template I just used documentation from the various libraries and frameworks.
+
+I would also ask that you view my 1 closed PR on this repo to see how I document my pull requests.
+
+See the below information for descriptions on the data processing I did on the csv.
+
+Thank you for your consideration,
+
+Will
+
+
 ```python
 import pandas as pd
 import sqlite3

@@ -42,7 +42,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-const api2 = axios.create({
+const api = axios.create({
   baseURL: `http://localhost:5000/`
 })
 
@@ -61,7 +61,7 @@ function App() {
   const [errorMessages, setErrorMessages] = useState([])
 
   useEffect(() => { 
-    api2.get("/movies")
+    api.get("/movies")
         .then(res => {               
             setData(res.data);
          })
@@ -72,42 +72,7 @@ function App() {
   }, [])
 
   const handleRowUpdate = (newData, oldData, resolve) => {
-    //validation
-    // let errorList = []
-    // if(newData.first_name === ""){
-    //   errorList.push("Please enter first name")
-    // }
-    // if(newData.last_name === ""){
-    //   errorList.push("Please enter last name")
-    // }
-    // if(newData.email === "" || validateEmail(newData.email) === false){
-    //   errorList.push("Please enter a valid email")
-    // }
-
-    // if(errorList.length < 1){
-    //   api.patch("/users/"+newData.id, newData)
-    //   .then(res => {
-    //     const dataUpdate = [...data];
-    //     const index = oldData.tableData.id;
-    //     dataUpdate[index] = newData;
-    //     setData([...dataUpdate]);
-    //     resolve()
-    //     setIserror(false)
-    //     setErrorMessages([])
-    //   })
-    //   .catch(error => {
-    //     setErrorMessages(["Update failed! Server error"])
-    //     setIserror(true)
-    //     resolve()
-        
-    //   })
-    // }else{
-    //   setErrorMessages(errorList)
-    //   setIserror(true)
-    //   resolve()
-
-    // }
-    
+    // TODO: Put update code
   }
 
   const handleRowAdd = (newData, resolve) => {
@@ -115,7 +80,7 @@ function App() {
     let errorList = []
 
     if(errorList.length < 1){ //no error
-      api2.post("/movies", newData)
+      api.post("/movies", newData)
       .then(res => {
         let dataToAdd = [...data];
         dataToAdd.push(newData);
@@ -138,7 +103,7 @@ function App() {
 
   const handleRowDelete = (oldData, resolve) => {
 
-    api2.delete("/movies/"+oldData.id)
+    api.delete("/movies/"+oldData.id)
       .then(res => {
         const dataDelete = [...data];
         const index = oldData.tableData.id;
